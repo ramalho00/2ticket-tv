@@ -116,6 +116,15 @@
     32%  { transform: translateX(2700px) skewX(-18deg); }
     100% { transform: translateX(2700px) skewX(-18deg); }
   }
+
+  /* aplicado por JS para reiniciar a sequência de entrada em loop */
+  .enter.reset,
+  .reset .ticket,
+  .reset .letter,
+  .reset .dot {
+    animation: none !important;
+    opacity: 0;
+  }
 </style>
 </head>
 <body>
@@ -163,5 +172,17 @@
       </div>
     </div>
   </div>
+
+  <script>
+    // repete a sequência de entrada (pop + letras) em loop;
+    // a flutuação e o halo continuam sem interrupção
+    const CICLO = 12000; // ms entre cada repetição — ajusta aqui
+    const enter = document.querySelector('.enter');
+    setInterval(() => {
+      enter.classList.add('reset');
+      void document.body.offsetWidth; // força reflow para reiniciar as animações
+      enter.classList.remove('reset');
+    }, CICLO);
+  </script>
 </body>
 </html>
